@@ -1,0 +1,48 @@
+{% extends "material/frontend/views/list.html" %}
+
+
+{% block footer %}
+<script type="text/javascript">
+  config = {{ datatable_config|safe }};
+
+  /////////////////////////////////////////////////////////////////////////////
+  config['bFilter'] = true;
+  config['oLanguage']['sSearch'] = '&nbsp;&nbsp;&nbsp;Búsqueda general';
+  config['oLanguage']['sZeroRecords'] = 'No se encontraron registros.';
+
+  /////////////////////////////////////////////////////////////////////////////
+
+  config['ajax']['data'] = function(data) {
+    var keys = Object.keys(data);
+    for(var i=0; i<=keys.length; i++) {
+      var key = keys[i],
+          value = data[key];
+      delete data[key];
+      data['datatable-' + key] = value;
+    }
+  };
+  config['ajax']['beforeSend'] = function(request) {
+    request.setRequestHeader("datatable", true);
+  };
+  $(document).one("turbolinks:load", function() {
+    if ( ! $.fn.DataTable.isDataTable( '#table' ) ) {
+      var datatable = $('#table').DataTable(config);
+      new $.fn.dataTable.FixedHeader(datatable);
+
+      $(document).one("turbolinks:before-cache", function() {
+        datatable.destroy();
+      });
+    }
+  });
+</script>
+{% endblock %}
+
+{% block right-panel %}{% endblock right-panel %}
+
+{% block action_btn %}
+<div class="fixed-action-btn">
+    {% if add_url %}
+      <a class="btn-floating btn-large waves-effect waves-light red z-depth-2" href="{{ add_url }}"><i class="large material-icons">add</i></a>
+    {% endif %}
+</div>
+{% endblock %}

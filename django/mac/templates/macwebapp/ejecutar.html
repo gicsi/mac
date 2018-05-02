@@ -1,0 +1,28 @@
+{% extends current_module.base_template %}
+{% load i18n material_form material_frontend %}
+
+
+{% block footer %}
+{% endblock %}
+
+{% block content %}
+{% block left-panel %}
+
+
+<h5 style="margin-top:50px; margin-left:30px;">Se registrará el pedido de ejecución...</h5>
+
+{{ tmp }}
+
+<script>
+    window.setTimeout(function(){
+        window.location.href = "../../ejecuciones/";
+
+    }, 4000);
+</script>
+
+{% endblock left-panel %}
+{% block right-panel %}{% endblock right-panel %}
+{% block action_btn %}
+
+{% endblock %}
+{% endblock %}
