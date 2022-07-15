@@ -3,7 +3,7 @@ billiard==3.5.0.3
 celery==4.1.0
 Django==2.0.4
 django-celery-beat==1.1.1
-django-celery-results==1.0.1
+django-celery-results==2.4.0
 django-material==1.2.2
 kombu==4.1.0
 pytz==2018.4
